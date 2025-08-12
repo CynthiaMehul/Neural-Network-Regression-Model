@@ -123,15 +123,13 @@ print(f'Prediction: {prediction}')
 
 ## OUTPUT
 
-
-
 ### Training Loss Vs Iteration Plot
 
 <img width="747" height="568" alt="image" src="https://github.com/user-attachments/assets/9d814f1a-8872-4c5c-9af9-191c3713de03" />
 
 ### New Sample Data Prediction
 
-<img width="923" height="136" alt="image" src="https://github.com/user-attachments/assets/ac3fd4db-5035-46e1-9f4a-4789f21a7d93" />
+<img width="924" height="129" alt="image" src="https://github.com/user-attachments/assets/be466e90-0714-4f4e-9dca-8a391fb8615c" />
 
 ## RESULT
-Therefore, neural network is developed for a basic dataset and implemented successfully. 
+Therefore, neural network is developed for the basic dataset and implemented successfully. 
