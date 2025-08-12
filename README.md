@@ -43,40 +43,95 @@ Plot the performance plot
 Evaluate the model with the testing data.
 
 ## PROGRAM
-### Name:
-### Register Number:
+### Name: Cynthia Mehul J
+### Register Number: 212223240020
+
 ```python
-class NeuralNet(nn.Module):
-    def __init__(self):
-        super().__init__()
-        #Include your code here
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt 
+import torch
 
+data=pd.read_csv('/content/linear.csv')
+x=data.iloc[:,0].values
+y=data.iloc[:,1].values
 
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=42)
 
-# Initialize the Model, Loss Function, and Optimizer
+scaler=StandardScaler()
+x_train=scaler.fit_transform(x_train.reshape(-1, 1))
+x_test=scaler.transform(x_test.reshape(-1, 1))
 
+x_train_tensor=torch.tensor(x_train,dtype=torch.float32)
+y_train_tensor=torch.tensor(y_train,dtype=torch.float32).view(-1,1)
+x_test_tensor=torch.tensor(x_test,dtype=torch.float32)
+y_test_tensor=torch.tensor(y_test,dtype=torch.float32).view(-1,1)
 
+class NeuralNetwork(torch.nn.Module):
+  def __init__(self):
+    super().__init__()
+    self.fc1=torch.nn.Linear(1,8)
+    self.fc2=torch.nn.Linear(8,12)
+    self.fc3=torch.nn.Linear(12,1)
+    self.relu=torch.nn.ReLU()
+    self.history={'loss':[]}
 
-def train_model(ai_brain, X_train, y_train, criterion, optimizer, epochs=2000):
-    #Include your code here
+  def forward(self,x):
+    x=self.relu(self.fc1(x))
+    x=self.relu(self.fc2(x))
+    x=self.fc3(x)
+    return x
 
+cynthia_brain=NeuralNetwork()
+loss_fn=torch.nn.MSELoss()
+optimizer=torch.optim.RMSprop(cynthia_brain.parameters(),lr=0.001)
 
+def train_model(model, x_train, y_train, loss_fn, optimizer, epochs):
+  for epoch in range(epochs):
+    y_pred = model(x_train)
+    loss = loss_fn(y_pred, y_train)
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
 
+    model.history['loss'].append(loss.item())
+    if epoch % 200 == 0:
+      print(f'Epoch [{epoch}/{epochs}], Loss: {loss.item():.6f}')
+
+train_model(cynthia_brain, x_train_tensor, y_train_tensor, loss_fn, optimizer,1500)
+
+with torch.no_grad():
+  y_pred = cynthia_brain(x_test_tensor)
+  test_loss = loss_fn(y_pred, y_test_tensor)
+  print(f'Test Loss: {test_loss.item():.6f}')
+
+loss_df = pd.DataFrame(cynthia_brain.history)
+loss_df.plot()
+plt.xlabel("Epochs")
+plt.ylabel("Loss")
+plt.title("Loss during Training")
+plt.show()
+
+X_n1_1 = torch.tensor([[23]], dtype=torch.float32)
+prediction = cynthia_brain(torch.tensor(scaler.transform(X_n1_1), dtype=torch.float32)).item()
+print(f'Prediction: {prediction}')
 ```
 ## Dataset Information
 
-Include screenshot of the dataset
+<img width="321" height="596" alt="image" src="https://github.com/user-attachments/assets/bf395273-a0c8-4c5f-9f15-5ef5cc07f324" />
 
 ## OUTPUT
 
+
+
 ### Training Loss Vs Iteration Plot
 
-Include your plot here
+<img width="747" height="568" alt="image" src="https://github.com/user-attachments/assets/9d814f1a-8872-4c5c-9af9-191c3713de03" />
 
 ### New Sample Data Prediction
 
-Include your sample input and output here
+<img width="923" height="136" alt="image" src="https://github.com/user-attachments/assets/ac3fd4db-5035-46e1-9f4a-4789f21a7d93" />
 
 ## RESULT
-
-Include your result here
+Therefore, neural network is developed for a basic dataset and implemented successfully. 
