@@ -6,11 +6,11 @@ To develop a neural network regression model for the given dataset.
 
 ## THEORY
 
-Explain the problem statement
+Developing a neural network model to perform regression tasks efficiently using the given dataset. The neural network has 1 neuron in the input layer, 4 neurons in the first hidden layer, 8 neurons in the second hidden layer and 1 neuron in the output layer. RMSprop is used as the optimizer for weight adjustment and MSE is used to compute the loss at each epoch.
 
 ## Neural Network Model
 
-Include the neural network model diagram.
+<img width="1031" height="793" alt="image" src="https://github.com/user-attachments/assets/4fa8365b-ef40-4a76-a97c-1d837a79f838" />
 
 ## DESIGN STEPS
 
